@@ -4,8 +4,10 @@ const NAVBAR_HEADLINE = "Spacetagram";
 
 export const NavBar = () => {
   return (
-    <Flex bg="blue.50" h="50" align="center" justify="center">
-      <Text textAlign="center">{NAVBAR_HEADLINE}</Text>
+    <Flex bg="gray.100" h="60px" align="center" justify="center">
+      <Text textAlign="center" fontWeight="bold" fontSize="20px">
+        {NAVBAR_HEADLINE}
+      </Text>
     </Flex>
   );
 };

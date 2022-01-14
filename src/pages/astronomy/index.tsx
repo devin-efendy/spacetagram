@@ -16,9 +16,7 @@ const AstronomyPage: NextPage<Props> = ({ apodData }) => {
   return (
     <Container p={0} m={0} maxW="100vw">
       <NavBar />
-      <Container>
-        <Astronomy apodData={apodData} />
-      </Container>
+      <Astronomy apodData={apodData} />
     </Container>
   );
 };
@@ -39,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (req) => {
       `${NASA_APOD_API_URL}?api_key=${config.nasaApiKey}&start_date=2022-01-01&end_date=2022-01-08`
     );
   } catch (error) {
-    // console.error("Failed to retrieve pictures from NASA API...");
+    console.error("Failed to retrieve pictures from NASA API...");
   }
 
   return {

@@ -6,6 +6,8 @@
     "plugin:@shopify/prettier"
   ],
   "rules": {
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "@shopify/jsx-no-hardcoded-content": "off",
+    "no-console": "off"
   }
 }
