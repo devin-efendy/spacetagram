@@ -1,11 +1,11 @@
-import { ApodData } from "apod-types";
 import axios from "axios";
+import { Container, Center } from "@chakra-ui/react";
 import type { NextPage, GetServerSideProps } from "next";
+import { ApodData } from "apod-types";
 
-import { Astronomy } from "../../components";
+import { Astronomy, NavBar } from "../../components";
 import config from "../../config";
 
-const PAGE_TITLE = "Astronomy Page /astronomy";
 const NASA_APOD_API_URL = "https://api.nasa.gov/planetary/apod";
 
 interface Props {
@@ -13,7 +13,14 @@ interface Props {
 }
 
 const AstronomyPage: NextPage<Props> = ({ apodData }) => {
-  return <Astronomy apodData={apodData} />;
+  return (
+    <Container p={0} m={0} maxW="100vw">
+      <NavBar />
+      <Container>
+        <Astronomy apodData={apodData} />
+      </Container>
+    </Container>
+  );
 };
 
 /**

@@ -1,7 +1,7 @@
 declare module "apod-types" {
   export interface ApodData {
     copyright: string;
-    data: string;
+    date: string;
     explanation: string;
     title: string;
     url: string;
