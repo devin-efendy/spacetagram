@@ -5,6 +5,6 @@ declare module "apod-types" {
     explanation: string;
     title: string;
     url: string;
-    id: string;
+    isLikedCookie: boolean;
   }
 }

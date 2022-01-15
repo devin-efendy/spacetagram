@@ -1,9 +1,49 @@
 import { useState } from "react";
-import { Box, Image, Flex, Button, Text, Icon } from "@chakra-ui/react";
+import { useCookies } from "react-cookie";
+import { Box, Image, Flex, Button, Text } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { ApodData } from "apod-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { v4 as uuidv4 } from "uuid";
+
+function handleUserCookie(
+  apodId: string,
+  isLiked: boolean,
+  cookies: any,
+  setCookie: any
+): void {
+  let userCookie;
+
+  if (cookies?.user) {
+    let updatedLikedPictures;
+    const { id, apodLikedPictures } = cookies.user;
+
+    if (isLiked) {
+      updatedLikedPictures = apodLikedPictures.filter(
+        (picId: string) => picId !== apodId
+      );
+    } else {
+      updatedLikedPictures = [...apodLikedPictures, apodId];
+    }
+
+    userCookie = {
+      id,
+      apodLikedPictures: updatedLikedPictures,
+    };
+  } else {
+    userCookie = {
+      id: uuidv4(),
+      apodLikedPictures: [apodId],
+    };
+  }
+
+  setCookie("user", JSON.stringify(userCookie), {
+    path: "/",
+    maxAge: 3600,
+    sameSite: true,
+  });
+}
 
 export const ApodCard = ({
   copyright,
@@ -11,9 +51,10 @@ export const ApodCard = ({
   title,
   url,
   explanation,
-  id,
+  isLikedCookie,
 }: ApodData) => {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(isLikedCookie);
+  const [cookies, setCookie] = useCookies(["user"]);
   const parsedDate = format(new Date(date), "MMM dd, yyyy");
   const renderCopyright = ` @ ${copyright}`;
 
@@ -38,7 +79,7 @@ export const ApodCard = ({
           {copyright && <>{renderCopyright}</>}
         </Text>
 
-        <Text as="body" fontSize={14}>
+        <Text as="p" fontSize={14}>
           {explanation}
         </Text>
 
@@ -50,7 +91,10 @@ export const ApodCard = ({
             borderRadius="md"
             bg={likeButtonBg}
             color="gray.600"
-            onClick={() => setIsLiked(!isLiked)}
+            onClick={() => {
+              handleUserCookie(date, isLiked, cookies, setCookie);
+              setIsLiked(!isLiked);
+            }}
           >
             {isLiked && <FontAwesomeIcon icon={faHeart} color="red" />}
             {!isLiked && <Text ml="0">Like</Text>}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Container, Center } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import type { NextPage, GetServerSideProps } from "next";
 import { ApodData } from "apod-types";
 
@@ -21,16 +21,8 @@ const AstronomyPage: NextPage<Props> = ({ apodData }) => {
   );
 };
 
-/**
- * TODO:
- *
- * Use cookie to track number of likes
- * and do something useState() for tracking likes
- *
- * put it as json and use stringify
- */
-export const getServerSideProps: GetServerSideProps = async (req) => {
-  let nasaRes = { data: null };
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  let nasaRes;
 
   try {
     nasaRes = await axios.get(
@@ -40,9 +32,26 @@ export const getServerSideProps: GetServerSideProps = async (req) => {
     console.error("Failed to retrieve pictures from NASA API...");
   }
 
+  const userCookies = req.cookies?.user
+    ? JSON.parse(req.cookies?.user)
+    : undefined;
+
+  let apodData = nasaRes?.data ? nasaRes.data : [];
+
+  if (nasaRes?.data && userCookies) {
+    apodData = nasaRes.data.map((apod: any) => {
+      return {
+        ...apod,
+        isLikedCookie: userCookies.apodLikedPictures.some(
+          (picId: string) => picId === apod.date
+        ),
+      };
+    });
+  }
+
   return {
     props: {
-      apodData: nasaRes.data,
+      apodData,
     },
   };
 };

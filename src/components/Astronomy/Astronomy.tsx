@@ -9,7 +9,8 @@ interface Props {
 
 export const Astronomy = ({ apodData }: Props) => {
   const renderApod = apodData.map((pic: ApodData) => {
-    const { copyright, date, explanation, title, url } = pic;
+    const { copyright, date, explanation, title, url, isLikedCookie } = pic;
+
     return (
       <ApodCard
         key={date}
@@ -18,7 +19,7 @@ export const Astronomy = ({ apodData }: Props) => {
         explanation={explanation}
         title={title}
         url={url}
-        id={date}
+        isLikedCookie={isLikedCookie}
       />
     );
   });
