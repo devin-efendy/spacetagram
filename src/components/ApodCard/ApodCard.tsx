@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { Box, Image, Flex, Button, Text } from "@chakra-ui/react";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import { ApodData } from "apod-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -55,7 +55,10 @@ export const ApodCard = ({
 }: ApodData) => {
   const [isLiked, setIsLiked] = useState(isLikedCookie);
   const [cookies, setCookie] = useCookies(["user"]);
-  const parsedDate = format(new Date(date), "MMM dd, yyyy");
+  const parsedDate = format(
+    parse(date, "yyyy-MM-dd", new Date()),
+    "MMM dd, yyyy"
+  );
   const renderCopyright = ` @ ${copyright}`;
 
   const likeButtonBg = isLiked ? "pink.100" : "none";

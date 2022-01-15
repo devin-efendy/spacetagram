@@ -1,5 +1,5 @@
 import { render, fireEvent } from "@testing-library/react";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import "@testing-library/jest-dom";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -26,7 +26,10 @@ describe("ApodCard component", () => {
   test("should renders successfully given proper properties", () => {
     const { getByText } = render(<ApodCard {...mockProps} />);
 
-    const parsedDate = format(new Date(mockProps.date), "MMM dd, yyyy");
+    const parsedDate = format(
+      parse(mockProps.date, "yyyy-MM-dd", new Date()),
+      "MMM dd, yyyy"
+    );
     expect(
       getByText(`${parsedDate} @ ${mockProps.copyright}`)
     ).toBeInTheDocument();
