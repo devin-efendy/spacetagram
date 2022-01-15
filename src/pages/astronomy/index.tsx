@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Container } from "@chakra-ui/react";
 import type { NextPage, GetServerSideProps } from "next";
+import Head from "next/head";
 import { ApodData } from "apod-types";
 
 import { Astronomy, NavBar } from "../../components";
@@ -14,10 +14,19 @@ interface Props {
 
 const AstronomyPage: NextPage<Props> = ({ apodData }) => {
   return (
-    <Container p={0} m={0} maxW="100vw">
+    <>
       <NavBar />
+      <Head>
+        <title>Spacetagram - Astronomy</title>
+        <meta
+          name="description"
+          content="Seven pictures from NASA Astronomy Picture of the Day"
+        />
+        <meta name="keywords" content="astronomy, nasa, pictures, space" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
       <Astronomy apodData={apodData} />
-    </Container>
+    </>
   );
 };
 

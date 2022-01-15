@@ -59,6 +59,9 @@ export const ApodCard = ({
   const renderCopyright = ` @ ${copyright}`;
 
   const likeButtonBg = isLiked ? "pink.100" : "none";
+  const likeButtonAria = isLiked
+    ? `You're currently liked "${title}" image`
+    : `You currently do not like "${title}" image`;
 
   return (
     <Box
@@ -71,10 +74,10 @@ export const ApodCard = ({
     >
       <Image src={url} alt={title} />
       <Box p="4">
-        <Text mt="1" fontWeight="bold" as="h2" isTruncated>
+        <Text mt="1" as="h1" fontWeight="bold">
           {title}
         </Text>
-        <Text mb="3" fontWeight="semibold" as="h4" color="gray.500">
+        <Text mb="3" as="h2" color="gray.600">
           {parsedDate}
           {copyright && <>{renderCopyright}</>}
         </Text>
@@ -95,9 +98,14 @@ export const ApodCard = ({
               handleUserCookie(date, isLiked, cookies, setCookie);
               setIsLiked(!isLiked);
             }}
+            aria-label={`Toggle like button. ${likeButtonAria}`}
           >
             {isLiked && <FontAwesomeIcon icon={faHeart} color="red" />}
-            {!isLiked && <Text ml="0">Like</Text>}
+            {!isLiked && (
+              <Text ml="0" as="span">
+                Like
+              </Text>
+            )}
           </Button>
         </Flex>
       </Box>

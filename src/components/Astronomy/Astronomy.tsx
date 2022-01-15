@@ -30,7 +30,7 @@ export const Astronomy = ({ apodData }: Props) => {
       w="1400px"
       maxW="100vw"
       mx="auto"
-      sx={{ columnCount: [1, 2, 3], columnGap: "6" }}
+      sx={{ columnCount: [1, 1, 2, 2, 3], columnGap: "6" }}
     >
       {renderApod}
     </Box>
