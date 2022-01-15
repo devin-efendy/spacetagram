@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { v4 as uuidv4 } from "uuid";
 
-function handleUserCookie(
+export function handleUserCookie(
   apodId: string,
   isLiked: boolean,
   cookies: any,
@@ -100,7 +100,13 @@ export const ApodCard = ({
             }}
             aria-label={`Toggle like button. ${likeButtonAria}`}
           >
-            {isLiked && <FontAwesomeIcon icon={faHeart} color="red" />}
+            {isLiked && (
+              <FontAwesomeIcon
+                data-testid="TEST_HEART_ICON"
+                icon={faHeart}
+                color="red"
+              />
+            )}
             {!isLiked && (
               <Text ml="0" as="span">
                 Like

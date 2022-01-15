@@ -30,6 +30,9 @@ const AstronomyPage: NextPage<Props> = ({ apodData }) => {
   );
 };
 
+/**
+ * TODO: write tests for getServerSideProps
+ */
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   let nasaRes;
 
