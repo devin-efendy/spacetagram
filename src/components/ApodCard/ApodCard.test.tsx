@@ -4,6 +4,8 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import config from "../../config";
+
 import { ApodCard, handleUserCookie } from "./ApodCard";
 
 jest.mock("uuid", () => {
@@ -21,13 +23,14 @@ describe("ApodCard component", () => {
     url: "/some/url/to/test",
     explanation: "explanation for apod",
     isLikedCookie: false,
+    mediaType: "image",
   };
 
   test("should renders successfully given proper properties", () => {
-    const { getByText } = render(<ApodCard {...mockProps} />);
+    const { getByText, getByAltText } = render(<ApodCard {...mockProps} />);
 
     const parsedDate = format(
-      parse(mockProps.date, "yyyy-MM-dd", new Date()),
+      parse(mockProps.date, config.NASA_DATE_FORMAT, new Date()),
       "MMM dd, yyyy"
     );
     expect(
@@ -36,6 +39,7 @@ describe("ApodCard component", () => {
     expect(getByText(mockProps.title)).toBeInTheDocument();
     expect(getByText(mockProps.explanation)).toBeInTheDocument();
     expect(getByText("Like")).toBeInTheDocument();
+    expect(getByAltText(mockProps.title)).toBeInTheDocument();
   });
 
   test("should changes like button when clicked", () => {
@@ -58,13 +62,37 @@ describe("ApodCard component", () => {
     expect(getByText("Like")).toBeInTheDocument();
     expect(queryByTestId("TEST_HEART_ICON")).toBeFalsy();
   });
+
+  test("should renders iframe when mediaType is video", () => {
+    const mockPropsWithVideo = {
+      ...mockProps,
+      mediaType: "video",
+    };
+
+    const { getByText, queryByAltText, getByTestId } = render(
+      <ApodCard {...mockPropsWithVideo} />
+    );
+
+    const parsedDate = format(
+      parse(mockProps.date, config.NASA_DATE_FORMAT, new Date()),
+      "MMM dd, yyyy"
+    );
+    expect(
+      getByText(`${parsedDate} @ ${mockProps.copyright}`)
+    ).toBeInTheDocument();
+    expect(getByText(mockProps.title)).toBeInTheDocument();
+    expect(getByText(mockProps.explanation)).toBeInTheDocument();
+    expect(getByText("Like")).toBeInTheDocument();
+    expect(queryByAltText(mockProps.title)).toBeFalsy();
+    expect(getByTestId("TEST_VIDEO_PLAYER")).toBeInTheDocument();
+  });
 });
 
 describe("ApodCard cookie", () => {
   const mockSetCookies = jest.fn();
 
   const mockSetCookieSetting = {
-    path: "/",
+    path: "/astronomy",
     maxAge: 3600,
     sameSite: true,
   };

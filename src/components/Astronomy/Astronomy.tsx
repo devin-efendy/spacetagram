@@ -9,7 +9,15 @@ interface Props {
 
 export const Astronomy = ({ apodData }: Props) => {
   const renderApod = apodData.map((pic: ApodData) => {
-    const { copyright, date, explanation, title, url, isLikedCookie } = pic;
+    const {
+      copyright,
+      date,
+      explanation,
+      title,
+      url,
+      mediaType,
+      isLikedCookie,
+    } = pic;
 
     return (
       <ApodCard
@@ -19,6 +27,7 @@ export const Astronomy = ({ apodData }: Props) => {
         explanation={explanation}
         title={title}
         url={url}
+        mediaType={mediaType}
         isLikedCookie={isLikedCookie}
       />
     );

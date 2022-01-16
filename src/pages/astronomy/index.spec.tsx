@@ -33,6 +33,27 @@ const mockNasaResponse = [
   },
 ];
 
+const mockServerSideProps = [
+  {
+    copyright: "First Last",
+    date: "2022-02-02",
+    title: "Title Picture A",
+    explanation: "explanation for apod a",
+    url: "/some/url/to/a/test",
+    mediaType: "image",
+    isLikedCookie: false,
+  },
+  {
+    copyright: "First2 Last2",
+    date: "2022-03-03",
+    title: "Title Picture B",
+    explanation: "explanation for apod b",
+    url: "/some/url/to/test/b",
+    mediaType: "image",
+    isLikedCookie: false,
+  },
+];
+
 describe("/astronomy getServerSideProps", () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -52,18 +73,18 @@ describe("/astronomy getServerSideProps", () => {
     );
 
     expect(JSON.stringify(result)).toBe(
-      JSON.stringify({ props: { apodData: mockNasaResponse } })
+      JSON.stringify({ props: { apodData: mockServerSideProps } })
     );
   });
 
   test("should return props when user cookie exist", async () => {
     const mockApodData = [
       {
-        ...mockNasaResponse[0],
+        ...mockServerSideProps[0],
         isLikedCookie: false,
       },
       {
-        ...mockNasaResponse[1],
+        ...mockServerSideProps[1],
         isLikedCookie: true,
       },
     ];

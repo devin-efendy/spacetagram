@@ -6,5 +6,6 @@ declare module "apod-types" {
     title: string;
     url: string;
     isLikedCookie: boolean;
+    mediaType: string;
   }
 }
