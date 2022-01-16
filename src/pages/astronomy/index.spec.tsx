@@ -1,10 +1,8 @@
-import util from "util";
-
 import axios from "axios";
 import { GetServerSidePropsContext } from "next/types";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
 
-import { getServerSideProps } from ".";
+import { getServerSideProps } from "./index";
 
 jest.mock("axios");
 
