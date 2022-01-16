@@ -2,7 +2,7 @@ import axios from "axios";
 import { GetServerSidePropsContext } from "next/types";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
 
-import { getServerSideProps } from "./index.page";
+import { fetchProps } from "./serverProps";
 
 jest.mock("axios");
 
@@ -68,13 +68,9 @@ describe("/astronomy getServerSideProps", () => {
 
     axios.get = jest.fn().mockResolvedValue({ data: mockNasaResponse });
 
-    const result = await getServerSideProps(
-      mockCtx as GetServerSidePropsContext
-    );
+    const result = await fetchProps(mockCtx as GetServerSidePropsContext);
 
-    expect(JSON.stringify(result)).toBe(
-      JSON.stringify({ props: { apodData: mockServerSideProps } })
-    );
+    expect(JSON.stringify(result)).toBe(JSON.stringify(mockServerSideProps));
   });
 
   test("should return props when user cookie exist", async () => {
@@ -102,12 +98,8 @@ describe("/astronomy getServerSideProps", () => {
 
     axios.get = jest.fn().mockResolvedValue({ data: mockNasaResponse });
 
-    const result = await getServerSideProps(
-      mockCtx as GetServerSidePropsContext
-    );
+    const result = await fetchProps(mockCtx as GetServerSidePropsContext);
 
-    expect(JSON.stringify(result)).toBe(
-      JSON.stringify({ props: { apodData: mockApodData } })
-    );
+    expect(JSON.stringify(result)).toBe(JSON.stringify(mockApodData));
   });
 });

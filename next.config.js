@@ -5,5 +5,4 @@ module.exports = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  pageExtensions: ['page.tsx'],
 };
