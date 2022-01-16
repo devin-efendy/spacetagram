@@ -51,7 +51,7 @@ export const ApodCard = ({
   title,
   url,
   explanation,
-  isLikedCookie,
+  isLikedCookie = false,
 }: ApodData) => {
   const [isLiked, setIsLiked] = useState(isLikedCookie);
   const [cookies, setCookie] = useCookies(["user"]);

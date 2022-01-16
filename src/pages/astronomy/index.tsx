@@ -30,10 +30,7 @@ const AstronomyPage: NextPage<Props> = ({ apodData }) => {
   );
 };
 
-/**
- * TODO: write tests for getServerSideProps
- */
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   let nasaRes;
 
   try {
@@ -44,8 +41,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     console.error("Failed to retrieve pictures from NASA API...");
   }
 
-  const userCookies = req.cookies?.user
-    ? JSON.parse(req.cookies?.user)
+  const userCookies = ctx.req.cookies?.user
+    ? JSON.parse(ctx.req.cookies?.user)
     : undefined;
 
   let apodData = nasaRes?.data ? nasaRes.data : [];
