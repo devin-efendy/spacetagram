@@ -1,34 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [Spacetagram](https://spacetagram-one.vercel.app/astronomy)
 
-## Getting Started
+Spacetagram is an image sharing application built with [Next.js](https://nextjs.org) and [Chakra-UI](https://chakra-ui.com). This application shows Astronomy Picture of the Day using [NASA API](https://api.nasa.gov/#apod). It uses cookie to track image that users have liked.
 
-First, run the development server:
+![Screen Shot 2022-01-16 at 7 32 26 PM](https://user-images.githubusercontent.com/36686154/149687475-3b52f1f3-d996-42d0-a777-fa369fedc7e1.png)
+
+## Running Spacetagram
+
+First, install the dependencies:
+
+```bash
+npm install
+```
+
+You also need to have NASA API Key which you can get here: https://api.nasa.gov/
+
+Create new `.env` file:
+
+```bash
+cp .env.test .env
+```
+
+After that set `NASA_API_KEY` environment variable in `.env` file to your new API Key.
+
+Finally, you can run the application locally:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application is available on [http://localhost:3000/astronomy](http://localhost:3000/astronomy)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Code Style
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+We use eslint to enforce code style. The settings for eslint is available at [.eslintrc](./.eslintrc).
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Currently, we follow [@shopify/eslint-plugin](https://www.npmjs.com/package/@shopify/eslint-plugin)
 
-## Learn More
+To run linter:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Testing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+For testing, we use [Jest](https://jestjs.io) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 
-## Deploy on Vercel
+To run the test:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run test
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contributing
+
+When committing changes, Husky [pre-commit script](./.husky/pre-commit) will be executed which runs eslint and test, to make sure changes are following the code style and tests are not failing.
+
+## Deployment
+
+This app is deployed using Vercel: [https://spacetagram-devin-efendy.vercel.app/astronomy](https://spacetagram-devin-efendy.vercel.app/astronomy)

@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prepare": "husky install",
+    "prepare:husky": "husky install",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix src/",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.4.2",
